@@ -1,0 +1,30 @@
+img {
+    max-width: 100%;
+}
+
+.country-card {
+    /* display: inline-block; */
+    background-color: white;
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.country-card__name {
+    text-decoration: underline;
+    font-weight: 800;
+}
+
+.country-card__details {
+    padding: 2rem;
+}
+
+p {
+
+}
+
+span {
+    font-weight: 800;
+}
