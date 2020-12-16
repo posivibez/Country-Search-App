@@ -88,8 +88,53 @@ const App = () => {
         });
       }
     }
+  };
 
-    //MADE ALL THIS LOGIC TO DO FILTER AND SEARCH AT SAME TIME BUT NOT SURE IF THIS IS POSSIBLE???
+  return (
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <>
+        <GlobalStyles />
+        <div className="topbar">
+          <div className="title">Where in the world?</div>
+          <button className="darkmode" onClick={toggleTheme}>
+            {theme === "light" 
+              ? <span><FontAwesomeIcon icon={faMoon} /> Dark Mode</span>
+              : <span><FontAwesomeIcon icon={faSun} /> Light Mode</span>}
+          </button>
+        </div>
+
+        <div className="options">
+          <Search search={update} />
+
+          <RegionFilter filter={update} />
+        </div>
+
+        <div className="countries-grid">
+          {countryState.countries.map((country) => (
+            <CountryCard
+              key={country.numericCode}
+              name={country.name}
+              population={country.population}
+              region={country.region}
+              capital={country.capital}
+              flag={country.flag}
+            />
+          ))}
+        </div>
+      </>
+    </ThemeProvider>
+  );
+};
+
+export default App;
+
+//ADD EVENT MESSAGE WHEN NO MATCH TO A COUNTRY!!!**
+
+//https://restcountries.eu/rest/v2/name/TEXT?regionalbloc=eu
+
+//https://restcountries.eu/rest/v2/regionalbloc/eu
+
+//MADE ALL THIS LOGIC TO DO FILTER AND SEARCH AT SAME TIME BUT NOT SURE IF THIS IS POSSIBLE???
     // //FLOW WHEN TRIGGERED BY SEARCH FIELD
     // if (event.target.id === "searchField") {
     //   searchValue = event.target.value;
@@ -136,48 +181,3 @@ const App = () => {
     //     });
     //   }
     // }
-  };
-
-  return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <>
-        <GlobalStyles />
-        <div className="topbar">
-          <div className="title">Where in the world?</div>
-          <button className="darkmode" onClick={toggleTheme}>
-            {theme === "light" 
-              ? <span><FontAwesomeIcon icon={faMoon} /> Dark Mode</span>
-              : <span><FontAwesomeIcon icon={faSun} /> Light Mode</span>}
-          </button>
-        </div>
-
-        <div className="options">
-          <Search search={update} />
-
-          <RegionFilter filter={update} />
-        </div>
-
-        <div className="countries-grid">
-          {countryState.countries.map((country) => (
-            <CountryCard
-              key={country.numericCode}
-              name={country.name}
-              population={country.population}
-              region={country.region}
-              capital={country.capital}
-              flag={country.flag}
-            />
-          ))}
-        </div>
-      </>
-    </ThemeProvider>
-  );
-};
-
-export default App;
-
-//ADD EVENT MESSAGE WHEN NO MATCH TO A COUNTRY!!!**
-
-//https://restcountries.eu/rest/v2/name/TEXT?regionalbloc=eu
-
-//https://restcountries.eu/rest/v2/regionalbloc/eu
