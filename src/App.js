@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
+
+//component imports
 import CountryCard from "./CountryCard/CountryCard";
 import Search from "./Search/Search";
 import RegionFilter from "./RegionFilter/RegionFilter";
+
+//styling and themed imports
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./ThemeStyling/theme";
+import { GlobalStyles } from "./ThemeStyling/global";
+
+//fontawesome imports
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+library.add(faSun, faMoon);
+
 
 const api = axios.create({
   baseURL: "https://restcountries.eu/rest/v2/",
@@ -20,6 +33,19 @@ const App = () => {
   const [countryState, setCountryState] = useState({
     countries: [],
   });
+  const [theme, setTheme] = useState("light");
+
+  // The function that toggles between themes
+  const toggleTheme = () => {
+    console.log("function fire");
+    // if the theme is not light, then set it to dark
+    if (theme === "light") {
+      setTheme("dark");
+      // otherwise, it should be light
+    } else {
+      setTheme("light");
+    }
+  };
 
   //function to load all data from API
   const allCountries = () => {
@@ -36,11 +62,10 @@ const App = () => {
 
   //UPDATE FUNCTION triggered by change in search or filter fields
   const update = (event) => {
-
     //Flow when triggered by search
     if (event.target.id === "searchField") {
       searchValue = event.target.value;
-      {document.getElementById('regionFilterDropDown').selectedIndex=0;}
+      document.getElementById("regionFilterDropDown").selectedIndex = 0;
       if (searchValue == null || searchValue === "") {
         //when search field is cleared to empty
         //LOAD ALL COUNTRIES DATA
@@ -51,10 +76,10 @@ const App = () => {
           setCountryState({ countries: res.data });
         });
       }
-    //Flow when triggered by filter  
+      //Flow when triggered by filter
     } else if (event.target.id === "regionFilterDropDown") {
       filterValue = event.target.value;
-      {document.getElementById('searchField').value="";}
+      document.getElementById("searchField").value = "";
       if (filterValue === "All") {
         allCountries();
       } else {
@@ -114,31 +139,38 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <div className="topbar">
-        <div className="title">Where in the world?</div>
-        <div className="darkmode">Dark Mode</div>
-      </div>
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <>
+        <GlobalStyles />
+        <div className="topbar">
+          <div className="title">Where in the world?</div>
+          <button className="darkmode" onClick={toggleTheme}>
+            {theme === "light" 
+              ? <span><FontAwesomeIcon icon={faMoon} /> Dark Mode</span>
+              : <span><FontAwesomeIcon icon={faSun} /> Light Mode</span>}
+          </button>
+        </div>
 
-      <div className="options">
-        <Search search={update} />
+        <div className="options">
+          <Search search={update} />
 
-        <RegionFilter filter={update} />
-      </div>
+          <RegionFilter filter={update} />
+        </div>
 
-      <div className="countries-grid">
-        {countryState.countries.map((country) => (
-          <CountryCard
-            key={country.numericCode}
-            name={country.name}
-            population={country.population}
-            region={country.region}
-            capital={country.capital}
-            flag={country.flag}
-          />
-        ))}
-      </div>
-    </div>
+        <div className="countries-grid">
+          {countryState.countries.map((country) => (
+            <CountryCard
+              key={country.numericCode}
+              name={country.name}
+              population={country.population}
+              region={country.region}
+              capital={country.capital}
+              flag={country.flag}
+            />
+          ))}
+        </div>
+      </>
+    </ThemeProvider>
   );
 };
 
