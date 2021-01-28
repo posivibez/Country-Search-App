@@ -1,0 +1,33 @@
+.search {
+
+}
+
+input {
+    padding: 1.5rem 2rem;
+    font-size: 1.2rem;
+    font-family: inherit;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px #EDEDED;
+    width: 30rem;
+    transition: all 0.25s linear;
+}
+
+
+
+.input-dark {
+    background-color: #2B3743;
+    color: #FAFAFA;
+    box-shadow: 2px 2px 5px #1E2B34;
+    transition: all 0.25s linear;
+}
+
+.input-dark::placeholder {
+    color:#FAFAFA;
+}
+
+@media only screen and (max-width: 40em) { /* mobile */
+    input {
+        width: 25rem;
+    }
+}

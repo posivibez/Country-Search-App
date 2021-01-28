@@ -1,10 +1,10 @@
 // theme.js
 export const lightTheme = {
-    body: '#E2E2E2',
+    body: '#FAFAFA',
     text: '#363537',
   }
   
   export const darkTheme = {
-    body: '#363537',
+    body: '#202D36',
     text: '#FAFAFA',
   }

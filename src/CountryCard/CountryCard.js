@@ -2,8 +2,11 @@ import "./CountryCard.css";
 
 function CountryCard(props) {
   return (
-    <div className="country-card">
-      <img src={props.flag} alt="" />
+    <div className={props.theme === "light" ? "country-card" : "country-card country-card-dark"} data-countryname={props.name} onClick={props.openOverlay}>
+
+      <div className="country-card__image">
+        <img src={props.flag} alt="Flag" />
+      </div>
 
       <div className="country-card__details">
       

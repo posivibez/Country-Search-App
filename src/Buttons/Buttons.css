@@ -1,0 +1,50 @@
+.button-container {
+    margin: 5rem; 
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    font-family: inherit;
+    background-color: white;
+    color: #3C3D3F;
+    box-shadow: 0 0 5px 2px #EDEDED;
+    border-radius: 5px;
+    /* font-size: 1.6rem; */
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s linear;
+}
+
+.btn:hover {
+    box-shadow: 0 0 5px 2px #ccc;
+    transition: all 0.25s linear;
+}
+
+.btn-dark {
+
+    box-shadow: 2px 2px 5px #1E2B34;
+    transition: all 0.25s linear;
+}
+
+.btn-hidden {
+    /* background-color: tomato; */
+    visibility: hidden;
+}
+
+.btn-previous {
+
+}
+
+.btn-next {
+
+}
+
+@media only screen and (max-width: 40em) { /* mobile */
+    .btn {
+
+        width: 11rem;
+    }
+}
